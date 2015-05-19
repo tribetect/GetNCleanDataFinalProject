@@ -16,7 +16,7 @@
 - STEP 1: **Merge test and trials data** folders into a single data frame, use **descriptive activity names**, **one variable per column**, and **one observation per row**
 - STEP 2: Subset the merged data to keep only the **means and standard deviation** variables
 - STEP 3: Replace variable (column) names with **human readable variable names**
-- FINISH-UP: Generate Tidy Data text file with data/time in the filename. 
+- FINISH-UP: **Generate tidy data text file** with data/time in the filename.  
 
 
 ## Requirements
