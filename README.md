@@ -15,6 +15,6 @@
 The script has been tested in RStudio with *R version 3.2.0 'Full of Ingredients'*
 
 ## Output
-The tidy data set looks like this: [UCI_Smartphone_data_tidy.txt](UCI_Smartphone_data_tidy.txt)
+The tidy data set looks like this: [UCI_Smartphone_data_tidy.txt](UCI_Smartphone_data_tidy.txt) (~11Mb)
 Thanks!
 @vic_divecha
