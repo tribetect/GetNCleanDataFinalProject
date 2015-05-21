@@ -20,8 +20,9 @@ Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ort
 
 The dataset consists of 512 variables, 
 
-| Variable      | Description   | Notes |
-| ------------- |:-------------:| -----:|
-| subject       | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Variable      | Type         | Description                          |
+|:------------- |:-------------| :------------------------------------|
+| **subject**       | numeric      | Test and trial subject identifier    |
+| **activity**      | character    | Activity being performed by **subject**  |
+| **features**      | -meta-     | Variables 3 through last column, with components- |
+| **feature:component**       | numeric      | **t** Time    |
