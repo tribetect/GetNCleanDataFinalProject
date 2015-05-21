@@ -20,18 +20,20 @@ Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ort
 
 The dataset consists of 512 variables, 
 
-| Variable      | Type         | Description                          |
+| Identifier Variables      | Type         | Description                          |
 |:------------- |:-------------| :------------------------------------|
 | **subject**       | numeric      | Test and trial subject identifier    |
 | **activity**      | character    | Activity being performed by **subject**  |
-|                   |             | WALKING:               |
-|                   |             | WALKING_UPSTAIRS:               |
-|                   |             | WALKING_DOWNSTAIRS:               |
-|                   |             | SITTING:               |
-|                   |             | STANDING:               |
-|                   |             | LAYING:               |
+|                   |             | WALKING               |
+|                   |             | WALKING_UPSTAIRS               |
+|                   |             | WALKING_DOWNSTAIRS               |
+|                   |             | SITTING     |
+|                   |             | STANDING               |
+|                   |             | LAYING              |
 
-| **features**      | numeric     | Variables 3 through last column, with components- |
-|                   |             | **t** Time domain            |
-|                   |             | **t** Frequency domain       |
-|                   |             | **t** Acc:               |
+| Feature Variables, Type: Numeric         | Description                          |
+|:------------- | :------------------------------------|
+| **features**  | column 3 through last column, with components: |
+|             | **mean** prefix indicates mean of feature            |
+|             | **frequency** domain of measurement       |
+|             | **time** domain of measurement       |
