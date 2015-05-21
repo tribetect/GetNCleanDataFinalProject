@@ -24,5 +24,14 @@ The dataset consists of 512 variables,
 |:------------- |:-------------| :------------------------------------|
 | **subject**       | numeric      | Test and trial subject identifier    |
 | **activity**      | character    | Activity being performed by **subject**  |
-| **features**      | -meta-     | Variables 3 through last column, with components- |
-| **feature:component**       | numeric      | **t** Time    |
+|                   |             | WALKING:               |
+|                   |             | WALKING_UPSTAIRS:               |
+|                   |             | WALKING_DOWNSTAIRS:               |
+|                   |             | SITTING:               |
+|                   |             | STANDING:               |
+|                   |             | LAYING:               |
+
+| **features**      | numeric     | Variables 3 through last column, with components- |
+|                   |             | **t** Time domain            |
+|                   |             | **t** Frequency domain       |
+|                   |             | **t** Acc:               |
