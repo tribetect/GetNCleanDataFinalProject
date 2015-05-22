@@ -1,4 +1,4 @@
-#Welcome to the UCI Smartphone Data: Tidying Scipt
+#UCI Smartphone Data: Tidying Script
 
 ## AIM: What does the script do?
 [run_analysis.R](run_analysis.R) 
