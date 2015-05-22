@@ -1,5 +1,6 @@
 #Codebook
-##UCI Merged Dataset
+##UCI Human Activity Recognition
+### Merged & Tidy Dataset, Summary Data Set of Means by Subject/Activity
 
 ###About
 This codebook describes the single, tidy dataset obtained by combining data files from the [UCI Human Activity Recognition Using Smartphones Data Set](https://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) using the [run_analysis.R](run_analysis.R) script.
