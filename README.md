@@ -2,12 +2,15 @@
 
 ## AIM: What does the script do?
 [run_analysis.R](run_analysis.R) 
+
 1. Tidies the human activity data '[UCI Human Activity Recognition by Smartphone] 
 (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)' by combining readings in different files, and retaining mean and standard deviation measures of features. **tidy_meanSD_yymmdd_hhmm.txt**
+
 2. Analysis the tidy data set above summarizing means of observations by subject and activity type: **tidy_means_of_meanSD_yymmdd_hhmm.txt**
 
 ## INSTRUCTIONS: How do I use it?
-1. Download the data files from the [UCI lab server] or [Coursera Get-and-Clean Data] 
+1. Download the data files from the [UCI lab server]
+(http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) or [Coursera Get-and-Clean Data] (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 2. Unzip the files in your working directory. A typically unzips to a folder *UCI HAR Dataset*
 3. Download [run_analysis.R](run_analysis.R) to the working directory.
 (Ensures both [run_analysis.R](run_analysis.R) and the source data folder *UCI HAR Dataset* are at the same level.)
@@ -20,10 +23,9 @@
 - STEP 3: Replace variable (column) names with **human readable variable names**
 - FINISH-UP: **Generate tidy data text file** with data/time in the filename.  
 
+## Codebook: Data dictionary and definition
+[See the accompanying codebook here](CodeBook.md)
 
-## Requirements
+## Notes
 The script has been tested in RStudio with *R version 3.2.0 'Full of Ingredients'*
 Packages: *plyr, dplyr, reshape2* must be installed
-
-Thanks!
-@vic_divecha
