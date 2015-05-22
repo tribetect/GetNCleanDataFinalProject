@@ -16,8 +16,7 @@ Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ort
 - An identifier of the subject who carried out the experiment
  
 
-### DATA DICTIONARY
-#### UCI Human Activity Recognition: Combined Data Set (Download)
+#### UCI Human Activity Recognition Data
 
 The features selected for this database come from the accelerometer and gyroscope's means of 3-axial raw signals. These time domain signals (variable name component 'time' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise (variabe name component 'frequency'. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (variable names with 'accelerometer') using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
@@ -30,7 +29,7 @@ These signals were used to estimate variables of the feature vector for each pat
 
 ##The tidy data of mean and standard deviation variables 
 
-###1. Identifier variables in tidy data sets
+### Identifier variables in tidy data sets
 
 | Identifier Variables      | Type         | Description                          |
 |:------------- |:-------------| :------------------------------------|
