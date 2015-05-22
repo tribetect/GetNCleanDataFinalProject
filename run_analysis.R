@@ -1,30 +1,38 @@
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #THIS FILE: run_analysis.R
-#ABOUT: This script makes this dataset tidy: UCI Machine Learning Dataset with Smartphone Accelerometer & gyrometer data
+# This script makes this dataset tidy: UCI Machine Learning Dataset 
+# with Smartphone Accelerometer & gyrometer data
+#
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # Data citation: Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. 
 ## A Public Domain Dataset for Human Activity Recognition Using Smartphones. 21th European Symposium on Artificial Neural Networks, 
 ## Computational Intelligence and Machine Learning, ESANN 2013. Bruges, Belgium 24-26 April 2013.
 #Data source: Data, license, & description: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+#
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Prep: Download and unzip dataset in your working directory: UCI HAR Dataset.zip
 #      A folder should appear "UCI HAR Dataset"
 #      Run this script from the working directory
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#PREFLIGHT Checks: Check if key files are reachable; If yes, set working directory to dataset root folder
+#PREFLIGHT Checks: Check if data set is reachable; 
+#If yes, set working directory to dataset root folder
+
+initialWD <- getwd()
 key_file1 <- ("activity_labels.txt" %in% dir("UCI HAR Dataset"))
 key_file2 <- ("features.txt" %in% dir("UCI HAR Dataset"))
 key_folder1 <- ("test" %in% dir("UCI HAR Dataset"))
 key_folder2 <- ("train" %in% dir("UCI HAR Dataset"))
-initialWD <- getwd()
+
 
 if(key_file1 && key_file2 && key_folder1 && key_folder2) 
   {
-    print("Key files and folders located")
+    print("FOUND Dataset 'Folder UCI HAR Dataset', key files and folders located")
     setwd("UCI HAR Dataset")
   } else {
-    e = "Key Files Missing \n Make sure the data set is unzipped correctly \n  See run_analysis.R script for detailed Prep instructions."
+    setwd("~/R")
+    e = paste("Dataset Folder UCI HAR Dataset not found in working directory", initialWD)
+    View(e)
     stop(e) #key files/folders missing
   }
 
@@ -32,6 +40,8 @@ if(key_file1 && key_file2 && key_folder1 && key_folder2)
 library(dplyr)
 library(plyr)
 library(reshape2)
+library(stringr)
+
 
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Analyis Steps
@@ -91,6 +101,7 @@ readable_train_data <- cbind(subjecttrain, ytrain, trialtype = "train", xtrain)
 dataTrialTest <- rbind(readable_test_data, readable_train_data)
 #10,299 Observations of 565 Variables
 
+
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #STEP 2: Extract only mean and standard deviation variables
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -133,11 +144,11 @@ variables <- variables[c("variable_id", "variable", "variable_name")] #re-arrang
 #---- 3.3 create longform names with gsub
 variables$variable_name <- #expansion 1: TIME measures
   gsub(x = variables$variable_name, pattern = "^t", replacement = "time_", ignore.case = FALSE) %>%   
-  gsub(pattern = "\\(t", replacement = "(time_", ignore.case = FALSE) %>%  
+  gsub(pattern = "\\(t", replacement = "_time_", ignore.case = FALSE) %>%  
   
   #expansion 2: FREQUENCY measures
   gsub(pattern = "^f", replacement = "frequency_", ignore.case = FALSE) %>%
-  gsub(pattern = "\\(f", replacement = "(frequency_", ignore.case = FALSE) %>%
+  gsub(pattern = "\\(f", replacement = "_frequency_", ignore.case = FALSE) %>%
   
   #expansion 3: DEVICE indicators
   gsub(pattern = "Acc", replacement = "Accelerometer_", ignore.case = FALSE) %>%
@@ -162,20 +173,71 @@ variables$variable_name <- #expansion 1: TIME measures
   gsub(pattern = "-mean\\(\\)", replacement = "Mean_", ignore.case = FALSE) %>%
   
   #expansion cleanups: remove dashes "-" and trailing underscores "_"
+  gsub(pattern = "\\(|\\)|\\,", replacement = "_") %>%
   gsub(pattern = "-", replacement = "") %>%
-  gsub(pattern = "_$", replacement = "") #%>%
+  gsub(pattern = "_$", replacement = "") %>%
+  
+    
+  #lowercase variable names #tidy data principle
+  tolower()
+
+
 
 #--- STEP 3.4: Join human readable variable names (variables) to subset of means & std.deviations data (MeansSDData)
 colnames(MeansSDData) <- c("subject", "activity_id", "activity", "trial_type", variables$variable_name)
+
 MeansSDData <- MeansSDData[,-2] #eliminate activity_id, as redundant information; 
 #89 Variables; 10,299 observations
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#
+
+#STEP 4: Generate a tidy table of mean values for each variable by subject
+tidydata <- MeansSDData
+
+#subject: Convert column to factor
+tidydata$subject <- as.factor(tidydata$subject)
+tidydata$activity <- as.factor(tidydata$activity)
+tidyMelt <- melt(tidydata, value.name = "xvariable_value", 
+                 id.vars = c("subject", "activity"), measure.vars = 4:89)
+
+## DDPLY TEST FOR 1 variable, needs to be applied to all 86 variables
+subactivitymeans <- ddply(tidyMelt, c("subject", "activity", "variable"), 
+    summarize, mean = mean(xvariable_value)) %>%
+    mutate(sub_act = paste(subject, activity, sep = "_"))
+
+subactivitymeans <- subactivitymeans[c("sub_act", "variable", "mean")] %>%
+    #cast molten data back to a rectangular data frame: One variable per column 
+    dcast(sub_act ~ variable, drop = TRUE, value.var = "mean")
+    
+#Split the subject/activity colummn
+  sub_act_col <- subactivitymeans$sub_act %>%
+                colsplit(pattern = "_", c("subject", "activity"))
+  
+#Rename Feature variables columns as "mean_..." to represent correctly
+  names(subactivitymeans) <- paste0("mean_", names(subactivitymeans))
+  subactivitymeans <- cbind(sub_act_col,subactivitymeans[2:85])
+
+#Sort by subject, activity
+  subactivitymeans$subject <- as.numeric(subactivitymeans$subject)
+  subactivitymeans <- arrange(subactivitymeans, subject, activity)
+
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #
-#FINISHING UP: generate the tidy data csv file; reset working directory 
+#FINISHING UP: generate variable name files (features), generate the tidy data text files with timestamp; reset working directory 
+#
 ##>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#View(MeansSDData) #View results in RStudio tabular view
-filename <- paste0("tidy_data_", format(Sys.time(), "%y%m%d_%H%M"), ".txt") #timestamped filename
-write.table(MeansSDData, filename, quote = TRUE, row.names = FALSE, fileEncoding = "UTF-8", sep = "\t")
+meansSDfeatures <- paste0("tidy_meanSD_features", format(Sys.time(), "%y%m%d_%H%M"), ".txt") #timestamped filename
+write.table(names(MeansSDData), meansSDfeatures, quote = FALSE, 
+            row.names = FALSE, fileEncoding = "UTF-8", sep = "\r")
+meansSDfile <- paste0("tidy_meanSD_", format(Sys.time(), "%y%m%d_%H%M"), ".txt") #timestamped filename
+write.table(MeansSDData, meansSDfile, quote = TRUE, 
+            row.names = FALSE, fileEncoding = "UTF-8", sep = "\t")
+
+meansOfMeansSDfeaturefile <- paste0("meansOfMeansSD_features", format(Sys.time(), "%y%m%d_%H%M"), ".txt") #timestamped filename
+write.table(names(subactivitymeans), meansOfMeansSDfeaturefile, quote = FALSE, 
+            row.names = FALSE, fileEncoding = "UTF-8", sep = "\r")
+
+means_of_meansSD <- paste0("tidy_means_of_meanSD_", format(Sys.time(), "%y%m%d_%H%M"), ".txt") #timestamped filename
+write.table(subactivitymeans, means_of_meansSD, quote = TRUE, 
+            row.names = FALSE, fileEncoding = "UTF-8", sep = "\t")
+
 setwd(initialWD) # Back to the folder one level above
