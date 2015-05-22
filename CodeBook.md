@@ -30,8 +30,7 @@ These signals were used to estimate variables of the feature vector for each pat
 
 ##The tidy data of mean and standard deviation variables 
 
-**Common to:** [Output 1: tidy_data_meanSD.txt](tidy_data_meanSD.txt)) & [Output 2: tidy_means_of_meanSD.txt](tidy_means_of_meanSD.txt))
-
+###1. Identifier variables in tidy data sets
 
 | Identifier Variables      | Type         | Description                          |
 |:------------- |:-------------| :------------------------------------|
@@ -45,8 +44,60 @@ These signals were used to estimate variables of the feature vector for each pat
 |                   |             | LAYING              |
 
 
+## Mean variables of mean and standard deviation of features (Column 3 - last) 
+### In summary data set of means of (mean and standard deviation variables) only 
+#### Final output/step 5 of course project
+##### Feature means: Numeric measurements from accelerometer and gyroscope
+mean_time_body_accelerometer_mean_xaxis
+mean_time_body_accelerometer_mean_yaxis
+mean_time_body_accelerometer_mean_zaxis
+mean_time_gravity_accelerometer_mean_xaxis
+mean_time_gravity_accelerometer_mean_yaxis
+mean_time_gravity_accelerometer_mean_zaxis
+mean_time_body_accelerometer_jerk_mean_xaxis
+mean_time_body_accelerometer_jerk_mean_yaxis
+mean_time_body_accelerometer_jerk_mean_zaxis
+mean_time_body_gyroscope_mean_xaxis
+mean_time_body_gyroscope_mean_yaxis
+mean_time_body_gyroscope_mean_zaxis
+mean_time_body_gyroscope_jerk_mean_xaxis
+mean_time_body_gyroscope_jerk_mean_yaxis
+mean_time_body_gyroscope_jerk_mean_zaxis
+mean_time_body_accelerometer_magnitude_mean
+mean_time_gravity_accelerometer_magnitude_mean
+mean_time_body_accelerometer_jerk_magnitude_mean
+mean_time_body_gyroscope_magnitude_mean
+mean_time_body_gyroscope_jerk_magnitude_mean
+mean_frequency_body_accelerometer_mean_xaxis
+mean_frequency_body_accelerometer_mean_yaxis
+mean_frequency_body_accelerometer_mean_zaxis
+mean_frequency_body_accelerometer_meanfrequency_xaxis
+mean_frequency_body_accelerometer_meanfrequency_yaxis
+mean_frequency_body_accelerometer_meanfrequency_zaxis
+mean_frequency_body_accelerometer_jerk_mean_xaxis
+mean_frequency_body_accelerometer_jerk_mean_yaxis
+mean_frequency_body_accelerometer_jerk_mean_zaxis
+mean_frequency_body_accelerometer_jerk_meanfrequency_xaxis
+mean_frequency_body_accelerometer_jerk_meanfrequency_yaxis
+mean_frequency_body_accelerometer_jerk_meanfrequency_zaxis
+mean_frequency_body_gyroscope_mean_xaxis
+mean_frequency_body_gyroscope_mean_yaxis
+mean_frequency_body_gyroscope_mean_zaxis
+mean_frequency_body_gyroscope_meanfrequency_xaxis
+mean_frequency_body_gyroscope_meanfrequency_yaxis
+mean_frequency_body_gyroscope_meanfrequency_zaxis
+mean_frequency_body_accelerometer_magnitude_mean
+mean_frequency_body_accelerometer_magnitude_meanfrequency
+mean_frequency_body_body_accelerometer_jerk_magnitude_mean
+mean_frequency_body_body_accelerometer_jerk_magnitude_meanfrequency
+mean_frequency_body_body_gyroscope_magnitude_mean
+mean_frequency_body_body_gyroscope_magnitude_meanfrequency
+mean_frequency_body_body_gyroscope_jerk_magnitude_mean
+mean_frequency_body_body_gyroscope_jerk_magnitude_meanfrequency
+mean_angle_time_body_accelerometer_mean_gravity
+
 ## Mean and standard deviation of features (Column 3 - last) 
-###**Applies to:** [Output 1: tidy_data_meanSD.txt](tidy_data_meanSD.txt)
+### In intermediate tidy data set of mean and standard deviation variables only (Step 4 of course project)
 ####Type: factor
 trial_type: 2 level factor variable; Values: **test or trial**
 
@@ -137,54 +188,3 @@ frequency_body_accelerometer_magnitude_standarddeviation
 frequency_body_body_accelerometer_jerk_magnitude_standarddeviation
 frequency_body_body_gyroscope_magnitude_standarddeviation
 frequency_body_body_gyroscope_jerk_magnitude_standarddeviation
-
-## Mean variables of mean and standard deviation of features (Column 3 - last) 
-###**Applies to:** [Output 2: tidy_means_of_meanSD.txt](tidy_means_of_meanSD.txt)
-#### Feature means: Numeric measurements from accelerometer and gyroscope
-mean_time_body_accelerometer_mean_xaxis
-mean_time_body_accelerometer_mean_yaxis
-mean_time_body_accelerometer_mean_zaxis
-mean_time_gravity_accelerometer_mean_xaxis
-mean_time_gravity_accelerometer_mean_yaxis
-mean_time_gravity_accelerometer_mean_zaxis
-mean_time_body_accelerometer_jerk_mean_xaxis
-mean_time_body_accelerometer_jerk_mean_yaxis
-mean_time_body_accelerometer_jerk_mean_zaxis
-mean_time_body_gyroscope_mean_xaxis
-mean_time_body_gyroscope_mean_yaxis
-mean_time_body_gyroscope_mean_zaxis
-mean_time_body_gyroscope_jerk_mean_xaxis
-mean_time_body_gyroscope_jerk_mean_yaxis
-mean_time_body_gyroscope_jerk_mean_zaxis
-mean_time_body_accelerometer_magnitude_mean
-mean_time_gravity_accelerometer_magnitude_mean
-mean_time_body_accelerometer_jerk_magnitude_mean
-mean_time_body_gyroscope_magnitude_mean
-mean_time_body_gyroscope_jerk_magnitude_mean
-mean_frequency_body_accelerometer_mean_xaxis
-mean_frequency_body_accelerometer_mean_yaxis
-mean_frequency_body_accelerometer_mean_zaxis
-mean_frequency_body_accelerometer_meanfrequency_xaxis
-mean_frequency_body_accelerometer_meanfrequency_yaxis
-mean_frequency_body_accelerometer_meanfrequency_zaxis
-mean_frequency_body_accelerometer_jerk_mean_xaxis
-mean_frequency_body_accelerometer_jerk_mean_yaxis
-mean_frequency_body_accelerometer_jerk_mean_zaxis
-mean_frequency_body_accelerometer_jerk_meanfrequency_xaxis
-mean_frequency_body_accelerometer_jerk_meanfrequency_yaxis
-mean_frequency_body_accelerometer_jerk_meanfrequency_zaxis
-mean_frequency_body_gyroscope_mean_xaxis
-mean_frequency_body_gyroscope_mean_yaxis
-mean_frequency_body_gyroscope_mean_zaxis
-mean_frequency_body_gyroscope_meanfrequency_xaxis
-mean_frequency_body_gyroscope_meanfrequency_yaxis
-mean_frequency_body_gyroscope_meanfrequency_zaxis
-mean_frequency_body_accelerometer_magnitude_mean
-mean_frequency_body_accelerometer_magnitude_meanfrequency
-mean_frequency_body_body_accelerometer_jerk_magnitude_mean
-mean_frequency_body_body_accelerometer_jerk_magnitude_meanfrequency
-mean_frequency_body_body_gyroscope_magnitude_mean
-mean_frequency_body_body_gyroscope_magnitude_meanfrequency
-mean_frequency_body_body_gyroscope_jerk_magnitude_mean
-mean_frequency_body_body_gyroscope_jerk_magnitude_meanfrequency
-mean_angle_time_body_accelerometer_mean_gravity
